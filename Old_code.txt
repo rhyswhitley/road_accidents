@@ -8,3 +8,18 @@ def plot_feature(data, label):
         x, y = vic_map(lon, lat)
         vic_map.plot(x, y, 'o', color=mapcol[f], alpha=0.5)
     return None
+    
+
+
+from scipy import stats 
+
+def get_feature_list(data, feat, pred):
+    conds_ = list(set(roads[feat]))
+    data_l = [data[data[feat]==lc][pred] for lc in conds_]
+    return data_l
+
+light_list = get_feature_list(roads, 'LIGHT_CONDITION_DESC', 'SEVERITY')
+
+f_val, p_val = stats.f_oneway(*light_list)  
+
+print("One-way ANOVA P = {0}".format(p_val))
