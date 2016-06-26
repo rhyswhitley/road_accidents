@@ -1,0 +1,10 @@
+# Old code -- slow but a useful reference for later
+
+
+def plot_feature(data, label):
+    feature = data[label].astype('category').cat.codes
+    mapcol = sns.color_palette("Set1", len(set(feature)))
+    for (lon, lat, f) in zip(data['LON'].values, data['LAT'].values, feature.values):
+        x, y = vic_map(lon, lat)
+        vic_map.plot(x, y, 'o', color=mapcol[f], alpha=0.5)
+    return None
