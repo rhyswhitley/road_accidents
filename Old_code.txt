@@ -23,3 +23,12 @@ light_list = get_feature_list(roads, 'LIGHT_CONDITION_DESC', 'SEVERITY')
 f_val, p_val = stats.f_oneway(*light_list)  
 
 print("One-way ANOVA P = {0}".format(p_val))
+
+
+
+from statsmodels.formula.api import ols
+
+new_data = pd.concat([data_x, targets])
+
+result = ols(formula='SEVERITY ~ SPEED_ZONE + LOCALS_INVOLVED + WEEKEND + LIGHT_CONDITION_DESC', data=roads).fit()    
+print(result.summary())    
